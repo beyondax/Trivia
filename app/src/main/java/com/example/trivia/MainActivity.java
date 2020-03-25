@@ -1,11 +1,11 @@
 package com.example.trivia;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trivia.data.AnswerListAsyncResponse;
 import com.example.trivia.data.QuestionBank;
@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mFalseButton;
 
     private int mScore;
-    private int mTotalQuestions;
 
     private List<Question> mQuestions;
 
@@ -54,11 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (mQuestions.get(mQuestionIndex).isTrue()) {
-                    mScore = mScore + 100;
-
-
-                }
+                checkAnswer();
                 updateQuestion();
                 updateScore();
             }
@@ -67,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mQuestions.get(mQuestionIndex).isTrue()) {
-                    mScore = mScore - 100;
 
-                }
+                checkAnswer();
                 updateQuestion();
                 updateScore();
             }
@@ -86,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkAnswer() {
+        if (mQuestions.get(mQuestionIndex).isTrue()) {
+            mScore = mScore + 100;
+        } else {
+            mScore = mScore - 100;
+        }
     }
 
     private void updateScore() {
